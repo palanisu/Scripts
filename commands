@@ -1,0 +1,23 @@
+VER=$(cat /etc/redhat-release | grep -o "release .*$" |  awk '{print substr($2,1,1)}')
+VER=$(if [[ -e /etc/oracle-release ]];then echo "$(sudo cat /etc/oracle-release | grep -o "release .*$" |  awk '{print substr($2,1,1)}' )";elif [[ -e /etc/redhat-release ]];then echo "$(sudo cat /etc/redhat-release | grep -o "release .*$" |  awk '{print substr($2,1,1)}')";fi)
+=========================
+Date & Time Zone Details
+-------------------------
+
+Date: $(date)
+
+Time Zone
+-----------
+timedatectl show | egrep "^NTP|Timezone"
+
+ls -l /etc/localtime
+
+SRVRDETAILS=`ssh -n ibmadmin@$ip -o BatchMode=yes -o ConnectTimeout=30 -o PasswordAuthentication=no -o StrictHostKeyChecking=no "echo SUCCESS" 2>&1`
+if [[ "${SRVRDETAILS}" =~ .*SUCCESS.* ]];then
+	login=ibmadmin
+else
+
+
+ sudo /sbin/ip address show | grep -w inet | egrep -v '(host|virbr)' | awk '{ print $2 }'
+
+ 
